@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: regalo
+  datasource:
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:src/main/resources/data.db
+  jpa:
+    open-in-view: true
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
+    properties:
+      hibernate:
+        ddl-auto: update
+        jdbc:
+          batch_size: 10
+        order_updates: true
+        order_inserts: true
