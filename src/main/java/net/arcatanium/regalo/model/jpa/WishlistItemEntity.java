@@ -1,5 +1,6 @@
 package net.arcatanium.regalo.model.jpa;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,6 +8,7 @@ import lombok.*;
 @Entity
 @Data
 @Table(name = WishlistItemEntity.WISHLIST_ITEM_TABLE_NAME)
+@IdClass(WishlistItemKey.class)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,8 +16,14 @@ public class WishlistItemEntity extends BaseEntity{
     public static final String WISHLIST_ITEM_TABLE_NAME = "WISHLIST_ITEM";
 
     @Id
-    @Column(name = "WISHLIST_ITEM_ID")
-    private String wishlistItemId;
+    @Column(name = "SEQUENCE_NUM")
+    private Integer sequenceNumber;
+
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "WISHLIST_ID")
+    @JsonIgnore
+    private WishlistEntity wishlistEntity;
 
     private String name;
 
@@ -23,7 +31,5 @@ public class WishlistItemEntity extends BaseEntity{
 
     private String url;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "WISHLIST_ID")
-    private WishlistEntity wishlistEntity;
+
 }

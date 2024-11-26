@@ -32,9 +32,9 @@ public class RegaloAPIController {
 
         if (CollectionUtils.isEmpty(wishlistList)) {
             throw new ResourceNotFoundException("No wishlists in database");
+        } else {
+            return new ResponseEntity<>(wishlistList, HttpStatus.OK);
         }
-
-        return new ResponseEntity<>(wishlistList, HttpStatus.OK);
     }
 
     @GetMapping(value = "/wishlist/{wishlistId}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -43,9 +43,20 @@ public class RegaloAPIController {
 
         if (wishlistOptional.isEmpty()) {
             throw new ResourceNotFoundException("Unable to find wishlist with id " + wishlistId);
+        } else {
+            return new ResponseEntity<>(wishlistOptional.get(), HttpStatus.OK);
         }
+    }
 
-        return new ResponseEntity<>(wishlistOptional.get(), HttpStatus.OK);
+    @GetMapping(value = "/wishlist/{wishlistId}/delete", produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> deleteWishlist(@PathVariable String wishlistId) {
+        boolean result = wishlistService.deleteWishlistById(wishlistId);
+
+        if (!result) {
+            throw new ResourceNotFoundException("Unable to find wishlist with id " + wishlistId);
+        } else {
+            return new ResponseEntity<>("Successfully deleted wishlist with id " + wishlistId, HttpStatus.OK);
+        }
     }
 
     @PostMapping(value = "/wishlist/save")
