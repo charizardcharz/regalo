@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="@{'Regalo - ' + ${wishlist.name}}">Wishlist</title>
+    <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/app.css}" rel="stylesheet" />
+    <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}" defer></script>
+    <script th:src="@{/js/app.js}" defer></script>
+</head>
+<body>
+<div class="container">
+    <h2 th:text="${wishlist.name}" /></h2>
+    <table class="table table-hover">
+        <thead class="thead-light">
+            <th>Number</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Location</th>
+        </thead>
+        <tbody>
+            <tr th:each="wishlistItem: ${wishlist.wishlistItems}">
+                <td th:text="${wishlistItem.number}" />
+                <td th:text="${wishlistItem.name}" />
+                <td th:text="${wishlistItem.description}" />
+                <td th:text="${wishlistItem.url}" />
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
