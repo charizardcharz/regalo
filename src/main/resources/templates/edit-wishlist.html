@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="@{'Regalo - ' + ${wishlist.name}}">Wishlist</title>
+  <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet" />
+  <link th:href="@{/css/app.css}" rel="stylesheet" />
+  <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}" defer></script>
+  <script th:src="@{/js/app.js}" defer></script>
+</head>
+<body>
+<nav th:replace="~{fragments/nav}">Navbar</nav>
+<div class="container mt-2">
+  <form>
+    <div class="mb-3">
+      <label for="name" class="formlabel">Name</label>
+      <input type="text" class="form-control" id="name" th:value="${wishlist.name}">
+    </div>
+    <div class="mb-3">
+      <table id="wishlist-item-table" class="table table-hover">
+        <thead class="thead-light">
+        <th>Number</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Location</th>
+        </thead>
+        <tbody>
+        <tr th:each="wishlistItem: ${wishlist.wishlistItems}">
+          <td th:text="${wishlistItem.number}" />
+          <td><input type="text" class="form-control" id="itemName" th:value="${wishlistItem.name}"></td>
+          <td><input type="text" class="form-control" id="description" th:value="${wishlistItem.description}"></td>
+          <td><input type="text" class="form-control" id="url" th:value="${wishlistItem.url}"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="clearfix">
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <a class="btn btn-secondary" th:href="@{display(id=${wishlist.id})}">Cancel</a>
+      <a class="btn btn-secondary btn-sm float-end" th:href="@{delete(id=${wishlist.id})}">Delete</a>
+    </div>
+  </form>
+</div>
+<footer th:replace="~{fragments/footer}">Footer</footer>
+</body>
+</html>

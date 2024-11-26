@@ -9,6 +9,14 @@
     <script th:src="@{/js/app.js}" defer></script>
 </head>
 <body>
-<a href="wishlists">Show All Wishlists</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">Regalo</a>
+    </div>
+</nav>
+<div class="container">
+    <a href="wishlists">Show All Wishlists</a>
+</div>
+<footer th:replace="~{fragments/footer}">Footer</footer>
 </body>
 </html>

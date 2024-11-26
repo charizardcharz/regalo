@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +15,7 @@ import java.util.Optional;
 @Controller
 @Slf4j
 public class RegaloWebController {
+    private static final String WISHLIST_ATTRIBUTE_NAME = "wishlist";
 
     WishlistService wishlistService;
 
@@ -27,15 +28,20 @@ public class RegaloWebController {
     public String getAllWishlists (Model model) {
         List<Wishlist> wishlists = wishlistService.getAllWishlists();
         model.addAttribute("wishlists", wishlists);
-        return "wishlists";
+        return "all-wishlists";
     }
 
-    @GetMapping("/wishlist/{wishlistId}")
-    public String getWishlistsById (@PathVariable String wishlistId, Model model) {
+    @GetMapping("/wishlist/display")
+    public String getWishlistsById (@RequestParam(name="id") String wishlistId, Model model) {
         Optional<Wishlist> wishlistOptional = wishlistService.getWishlistById(wishlistId);
-        if (wishlistOptional.isPresent()){
-            model.addAttribute("wishlist", wishlistOptional.get());
-        }
-        return "wishlist";
+        wishlistOptional.ifPresent(wishlist -> model.addAttribute(WISHLIST_ATTRIBUTE_NAME, wishlist));
+        return "display-wishlist";
+    }
+
+    @GetMapping("/wishlist/edit")
+    public String editWishlistByIdForm(@RequestParam(name="id") String wishlistId, Model model) {
+        Optional<Wishlist> wishlistOptional = wishlistService.getWishlistById(wishlistId);
+        wishlistOptional.ifPresent(wishlist -> model.addAttribute(WISHLIST_ATTRIBUTE_NAME, wishlist));
+        return "edit-wishlist";
     }
 }
