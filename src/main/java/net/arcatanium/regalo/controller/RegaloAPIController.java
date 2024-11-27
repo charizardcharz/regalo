@@ -53,7 +53,7 @@ public class RegaloAPIController {
         boolean result = wishlistService.deleteWishlistById(wishlistId);
 
         if (!result) {
-            throw new ResourceNotFoundException("Unable to find wishlist with id " + wishlistId);
+            return new ResponseEntity<>("Unable to find wishlist with id " + wishlistId, HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>("Successfully deleted wishlist with id " + wishlistId, HttpStatus.OK);
         }
@@ -61,7 +61,7 @@ public class RegaloAPIController {
 
     @PostMapping(value = "/wishlist/save")
     public ResponseEntity<WishlistEntity> saveWishlist(@RequestBody Wishlist wishlist){
-        Optional<WishlistEntity> wishlistEntityOptional = Optional.ofNullable(wishlistService.saveWishlist(wishlist));
+        Optional<WishlistEntity> wishlistEntityOptional = wishlistService.saveWishlist(wishlist);
 
         if (wishlistEntityOptional.isEmpty()){
             return ResponseEntity.internalServerError().build();
@@ -72,7 +72,7 @@ public class RegaloAPIController {
 
     @PutMapping(value = "/wishlist/{wishlistId}/update")
     public ResponseEntity<WishlistEntity> updateWishlist(@RequestBody Wishlist wishlist){
-        Optional<WishlistEntity> wishlistEntityOptional = Optional.ofNullable(wishlistService.saveWishlist(wishlist));
+        Optional<WishlistEntity> wishlistEntityOptional = wishlistService.saveWishlist(wishlist);
 
         if (wishlistEntityOptional.isEmpty()){
             return ResponseEntity.internalServerError().build();
