@@ -1,6 +1,7 @@
 package net.arcatanium.regalo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
 import net.arcatanium.regalo.model.jpa.WishlistEntity;
@@ -12,10 +13,17 @@ import java.util.UUID;
 @Builder
 public class WishlistItem {
     private Integer number;
+
     @JsonIgnore
     private UUID wishlistId;
+
+    @Size(max=255)
     private String name;
+
+    @Size(max=2048)
     private String description;
+
+    @Size(max=2048)
     private String url;
 
     public static WishlistItem convertFromEntity(WishlistItemEntity wishlistItemEntity) {

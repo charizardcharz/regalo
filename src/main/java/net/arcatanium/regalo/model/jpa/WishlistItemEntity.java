@@ -27,8 +27,10 @@ public class WishlistItemEntity extends BaseEntity{
 
     private String name;
 
+    @Column(name = "DESCRIPTION", length = 2048)
     private String description;
 
+    @Column(name = "URL", length = 2048)
     private String url;
 
 
