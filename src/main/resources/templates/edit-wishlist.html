@@ -37,9 +37,28 @@
     <div class="clearfix">
       <button type="submit" class="btn btn-primary">Submit</button>
       <a class="btn btn-secondary" th:href="@{display(id=${wishlist.id})}">Cancel</a>
-      <a class="btn btn-secondary btn-sm float-end" th:href="@{delete(id=${wishlist.id})}">Delete</a>
+      <button type="button" class="btn btn-secondary btn-sm float-end" data-bs-toggle="modal" data-bs-target="#deleteModal">
+        Delete
+      </button>
     </div>
   </form>
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Wishlist</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete this wishlist?
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-primary" th:href="@{delete(id=${wishlist.id})}">Yes</a>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <footer th:replace="~{fragments/footer}">Footer</footer>
 </body>
