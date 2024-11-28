@@ -115,7 +115,7 @@ Copyright (C) 2024  Albert Ybanez
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License along
-    with this program; if not, see <<a href="https://www.gnu.org/licenses/">https://www.gnu.org/licenses/</a>>.
+    with this program; if not, see <https://www.gnu.org/licenses/>.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
