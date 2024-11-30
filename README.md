@@ -10,7 +10,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![GPL License][license-shield]][license-url]
+[![MPL License][license-shield]][license-url]
 
 
 <!-- PROJECT LOGO -->
@@ -54,7 +54,7 @@
 
 <!--[![Product Name Screen Shot][product-screenshot]](https://example.com)  -->
 
-Regalo is a basic wishlisting app build with simplicity in mind.
+Regalo is a basic wishlisting app built using Java Spring Boot with simplicity in mind. Wishlists are stored in plaintext in a sqlite database.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -64,7 +64,7 @@ Regalo is a basic wishlisting app build with simplicity in mind.
 
 ### Docker Deploymment
 
-2. ghcr.io
+2. 
 
 
 <!-- USAGE EXAMPLES -->
@@ -103,19 +103,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Copyright (C) 2024  Albert Ybanez
-
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; version 2 of the License.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License along
-    with this program; if not, see <https://www.gnu.org/licenses/>.
+Mozilla Public License Version 2.0
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -131,17 +119,6 @@ Project Link: [https://github.com/charizardcharz/regalo](https://github.com/char
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* 
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/charizardcharz/regalo.svg?style=for-the-badge
@@ -153,4 +130,4 @@ Project Link: [https://github.com/charizardcharz/regalo](https://github.com/char
 [issues-shield]: https://img.shields.io/github/issues/charizardcharz/regalo.svg?style=for-the-badge
 [issues-url]: https://github.com/charizardcharz/regalo/issues
 [license-shield]: https://img.shields.io/github/license/charizardcharz/regalo.svg?style=for-the-badge
-[license-url]: https://github.com/charizardcharz/regalo/blob/main/COPYING
+[license-url]: https://github.com/charizardcharz/regalo/blob/master/LICENCE
