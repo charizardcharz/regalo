@@ -12,6 +12,7 @@
 [![Issues][issues-shield]][issues-url]
 [![MPL License][license-shield]][license-url]
 
+⚠️ WARNING -- This application is in development and not production ready. Things may break. Expect data loss between versions due to database schema changes.
 
 <!-- PROJECT LOGO -->
 <div align="center">
@@ -43,7 +44,6 @@
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -54,9 +54,8 @@
 
 <!--[![Product Name Screen Shot][product-screenshot]](https://example.com)  -->
 
-⚠️ WARNING -- This application is in development and not production ready. Things may break. Expect data loss between versions due to database schema changes.
-
-Regalo is a basic wishlisting app built using Java Spring Boot with simplicity in mind. Wishlists are stored in plaintext in a sqlite database.
+Regalo is a basic wishlisting app built using Java Spring Boot with simplicity in mind.
+Wishlists are stored in plaintext in a sqlite database.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
