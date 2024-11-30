@@ -17,7 +17,4 @@ public abstract class BaseEntity {
 
     @UpdateTimestamp
     private Instant lastUpdateTimeStamp;
-
-    @Version
-    private Integer version;
 }
