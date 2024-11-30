@@ -61,17 +61,38 @@ Wishlists are stored in plaintext in a sqlite database.
 
 <!-- GETTING STARTED -->
 ## Getting Started
-1. Available soon
+Deployment via is highly recommended.
 
 ### Docker Deploymment
 
-2. 
+The latest docker image is available at `ghcr.io/charizardcharz/regalo:latest`
+
+### JAR deployemnt
+
+You must have sqlite 3.47+ installed before running the application.
+
+A jar is not provided, however it can be built folowing the build instructions below.
+
+To run the application, ensure that you correctly set the path where you would like to store the database in application.yml before building.
+
+You can also set the environment variable `SRPING_DATASOUCE_URL=jdbc:sqlite:/path/to/database.sqlite3` to override the preset database location.
 
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Run the docker image
+Example docker-compose
+```yaml
+services:
+  regalo:
+    image: ghcr.io/charizardcharz/regalo:latest
+    container_name: regalo
+    ports:
+      - 6969:6969
+    restart: unless-stopped
+    volumes:
+      - PATH/TO/CONFIG:/config
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -81,6 +102,9 @@ Run the docker image
 
 Requires Java 21+ and Maven 3+
 
+Build a jar using Maven `mvn clean package`
+
+Build a docker image `docker build -t regalo .`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
