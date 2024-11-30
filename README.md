@@ -54,6 +54,8 @@
 
 <!--[![Product Name Screen Shot][product-screenshot]](https://example.com)  -->
 
+⚠️ WARNING -- This application is in development and not production ready. Things may break. Expect data loss between versions due to database schema changes.
+
 Regalo is a basic wishlisting app built using Java Spring Boot with simplicity in mind. Wishlists are stored in plaintext in a sqlite database.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
