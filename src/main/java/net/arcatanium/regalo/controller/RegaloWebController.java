@@ -60,14 +60,8 @@ public class RegaloWebController {
     }
 
     @GetMapping("/wishlist/new-item")
-    public String addNewWishlistItem(@RequestParam String wishlistId, @RequestHeader(value = HttpHeaders.REFERER, required = false) final String referrer) {
-        Optional<WishlistItemEntity> wishlistItemEntityOptional = wishlistService.createNewWishlistItem(wishlistId);
-
-        if (wishlistItemEntityOptional.isPresent()) {
-            return "redirect:" + referrer;
-        } else {
-            return "error";
-        }
+    public String addNewWishlistItem(@RequestParam String wishlistId, @RequestHeader(value = HttpHeaders.REFERER, required = false) final String referrer) {wishlistService.createNewWishlistItem(wishlistId);
+        return "redirect:" + referrer;
     }
 
     @GetMapping("/wishlist/delete-item")

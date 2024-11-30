@@ -6,8 +6,11 @@
 
 package net.arcatanium.regalo.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import lombok.extern.slf4j.Slf4j;
 import net.arcatanium.regalo.model.Wishlist;
+import net.arcatanium.regalo.model.WishlistItem;
 import net.arcatanium.regalo.model.jpa.WishlistEntity;
 import net.arcatanium.regalo.model.jpa.WishlistItemEntity;
 import net.arcatanium.regalo.model.jpa.WishlistItemKey;
@@ -19,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -66,7 +70,7 @@ public class WishlistService {
             log.debug("Saving new wishlist");
         }
 
-        return Optional.of(wishlistRepository.save(Wishlist.convertToEntity(wishlist)));
+        return Optional.of(wishlistRepository.saveAndFlush(Wishlist.convertToEntity(wishlist)));
     }
 
     /** Delete wishlist by ID
@@ -90,25 +94,29 @@ public class WishlistService {
         WishlistEntity wishlistEntity = WishlistEntity.builder()
                 .name("New Wishlist")
                 .build();
-        return wishlistRepository.save(wishlistEntity);
+        return wishlistRepository.saveAndFlush(wishlistEntity);
     }
 
-    public Optional<WishlistItemEntity> createNewWishlistItem(String wishlistId) {
+    public void createNewWishlistItem(String wishlistId) {
         log.debug("Creating new empty wishlist item");
         Optional<WishlistEntity> wishlistEntityOptional = RegaloUtils.isValidUUID(wishlistId) ?
                 wishlistRepository.findByWishlistId(UUID.fromString(wishlistId)) : Optional.empty();
         if (wishlistEntityOptional.isPresent()){
-            WishlistEntity wishlistEntity = wishlistEntityOptional.get();
-            int wishlistItemCount = CollectionUtils.isEmpty(wishlistEntity.getWishlistItemEntityList()) ? 0 : wishlistEntity.getWishlistItemEntityList().size();
+            Wishlist wishlist = Wishlist.convertFromEntity(wishlistEntityOptional.get());
 
-            WishlistItemEntity wishlistItemEntity = WishlistItemEntity.builder()
-                    .sequenceNumber(wishlistItemCount + 1)
-                    .wishlistEntity(wishlistEntityOptional.get())
-                    .build();
+            if (CollectionUtils.isEmpty(wishlist.getWishlistItems())){
+                wishlist.setWishlistItems(List.of(WishlistItem.builder()
+                        .number(1)
+                        .wishlistId(UUID.fromString(wishlist.getId()))
+                        .build()));
+            } else {
+                wishlist.getWishlistItems().add(WishlistItem.builder()
+                        .number(wishlist.getWishlistItems().size() + 1)
+                        .wishlistId(UUID.fromString(wishlist.getId()))
+                        .build());
+            }
 
-            return Optional.of(wishlistItemRepository.save(wishlistItemEntity));
-        } else {
-            return Optional.empty();
+            wishlistRepository.saveAndFlush(Wishlist.convertToEntity(wishlist));
         }
     }
 

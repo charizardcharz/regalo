@@ -14,6 +14,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -33,7 +34,7 @@ public class Wishlist {
                 .wishlistItems(wishlistEntity.getWishlistItemEntityList() != null ?
                         wishlistEntity.getWishlistItemEntityList().stream()
                                 .map(WishlistItem::convertFromEntity)
-                                .toList() :
+                                .collect(Collectors.toList()) :
                         List.of())
                 .build();
     }
