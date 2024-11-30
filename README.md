@@ -61,7 +61,7 @@ Wishlists are stored in plaintext in a sqlite database.
 
 <!-- GETTING STARTED -->
 ## Getting Started
-Deployment via is highly recommended.
+Deployment via docker is highly recommended.
 
 ### Docker Deploymment
 
