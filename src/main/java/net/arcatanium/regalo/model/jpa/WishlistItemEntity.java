@@ -29,6 +29,7 @@ public class WishlistItemEntity extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "WISHLIST_ID")
     @JsonIgnore
+    @ToString.Exclude
     private WishlistEntity wishlistEntity;
 
     private String name;

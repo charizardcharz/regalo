@@ -28,7 +28,7 @@
         </thead>
         <tbody>
         <tr th:each="wishlistItem, iterStat: ${wishlist.wishlistItems}">
-          <td><input type="number" class="form-control" th:value="${wishlistItem.number}" th:field="*{wishlistItems[__${iterStat.index}__].number}" disabled readonly></td>
+          <td><input type="text" class="form-control-plaintext" th:value="${wishlistItem.number}" th:field="*{wishlistItems[__${iterStat.index}__].number}" readonly></td>
           <td><input type="text" class="form-control" th:value="${wishlistItem.name}" th:field="*{wishlistItems[__${iterStat.index}__].name}"></td>
           <td><input type="text" class="form-control" th:value="${wishlistItem.description}" th:field="*{wishlistItems[__${iterStat.index}__].description}"></td>
           <td><input type="text" class="form-control" th:value="${wishlistItem.url}" th:field="*{wishlistItems[__${iterStat.index}__].url}"></td>

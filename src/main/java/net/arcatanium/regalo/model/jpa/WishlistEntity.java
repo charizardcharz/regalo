@@ -31,6 +31,8 @@ public class WishlistEntity extends BaseEntity {
     private String name;
 
     @OneToMany(mappedBy = "wishlistEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private List<WishlistItemEntity> wishlistItemEntityList;
 
 }
