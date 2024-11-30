@@ -3,14 +3,13 @@ package net.arcatanium.regalo.controller;
 import lombok.extern.slf4j.Slf4j;
 import net.arcatanium.regalo.model.Wishlist;
 import net.arcatanium.regalo.model.jpa.WishlistEntity;
+import net.arcatanium.regalo.model.jpa.WishlistItemEntity;
 import net.arcatanium.regalo.service.WishlistService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -49,18 +48,32 @@ public class RegaloWebController {
     }
 
     @GetMapping("/wishlist/new")
-    public String editWishlistByIdForm(Model model) {
+    public String addNewWishlist() {
         WishlistEntity wishlistEntity = wishlistService.createNewWishlist();
-        model.addAttribute(WISHLIST_ATTRIBUTE_NAME, Wishlist.convertFromEntity(wishlistEntity));
         return "redirect:display?id=" + wishlistEntity.getWishlistId().toString();
     }
 
-    @PostMapping("/wishlist/edit")
-    public String editWishlistByIdSubmit(@ModelAttribute Wishlist wishlist, Model model) {
-        Optional<WishlistEntity> wishlistEntityOptional = wishlistService.saveWishlist(wishlist);
-        wishlistEntityOptional.ifPresent(wishlistEntity ->
-                model.addAttribute(WISHLIST_ATTRIBUTE_NAME, Wishlist.convertFromEntity(wishlistEntity)));
-        return "edit-wishlist";
+    @GetMapping("/wishlist/new-item")
+    public String addNewWishlistItem(@RequestParam String wishlistId, @RequestHeader(value = HttpHeaders.REFERER, required = false) final String referrer) {
+        Optional<WishlistItemEntity> wishlistItemEntityOptional = wishlistService.createNewWishlistItem(wishlistId);
+
+        if (wishlistItemEntityOptional.isPresent()) {
+            return "redirect:" + referrer;
+        } else {
+            return "error";
+        }
+    }
+
+    @GetMapping("/wishlist/delete-item")
+    public String deleteWishlistItem (@RequestParam String wishlistId, @RequestParam Integer sequenceNumber, @RequestHeader(value = HttpHeaders.REFERER, required = false) final String referrer) {
+        wishlistService.deleteWishlistItemByKey(wishlistId, sequenceNumber);
+        return "redirect:" + referrer;
+    }
+
+    @PostMapping("/wishlist/save")
+    public String editWishlistByIdSubmit(@ModelAttribute Wishlist wishlist, Model model , @RequestHeader(value = HttpHeaders.REFERER, required = false) final String referrer) {
+        wishlistService.saveWishlist(wishlist);
+        return "redirect:" + referrer;
     }
 
     @GetMapping("/wishlist/delete")

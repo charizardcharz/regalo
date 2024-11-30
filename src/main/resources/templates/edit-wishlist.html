@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title th:text="@{'Regalo - ' + ${wishlist.name}}">Wishlist</title>
   <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet" />
+  <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet" />
   <link th:href="@{/css/app.css}" rel="stylesheet" />
   <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}" defer></script>
   <script th:src="@{/js/app.js}" defer></script>
@@ -11,10 +12,11 @@
 <body>
 <nav th:replace="~{fragments/nav}">Navbar</nav>
 <div class="container mt-2">
-  <form>
+  <form action="#" th:action="@{save}" th:object="${wishlist}" method="post">
     <div class="mb-3">
       <label for="name" class="formlabel">Name</label>
-      <input type="text" class="form-control" id="name" th:value="${wishlist.name}">
+      <input type="text" class="form-control" id="name" th:value="${wishlist.name}" th:field="*{name}">
+      <input type="hidden" class="form-control" id="id" th:value="${wishlist.id}" th:field="*{id}">
     </div>
     <div class="mb-3">
       <table id="wishlist-item-table" class="table table-hover">
@@ -25,19 +27,29 @@
         <th>Location</th>
         </thead>
         <tbody>
-        <tr th:each="wishlistItem: ${wishlist.wishlistItems}">
-          <td th:text="${wishlistItem.number}" />
-          <td><input type="text" class="form-control" id="itemName" th:value="${wishlistItem.name}"></td>
-          <td><input type="text" class="form-control" id="description" th:value="${wishlistItem.description}"></td>
-          <td><input type="text" class="form-control" id="url" th:value="${wishlistItem.url}"></td>
+        <tr th:each="wishlistItem, iterStat: ${wishlist.wishlistItems}">
+          <td><input type="number" class="form-control" th:value="${wishlistItem.number}" th:field="*{wishlistItems[__${iterStat.index}__].number}" disabled readonly></td>
+          <td><input type="text" class="form-control" th:value="${wishlistItem.name}" th:field="*{wishlistItems[__${iterStat.index}__].name}"></td>
+          <td><input type="text" class="form-control" th:value="${wishlistItem.description}" th:field="*{wishlistItems[__${iterStat.index}__].description}"></td>
+          <td><input type="text" class="form-control" th:value="${wishlistItem.url}" th:field="*{wishlistItems[__${iterStat.index}__].url}"></td>
+          <td><a th:href="@{/wishlist/delete-item(wishlistId=${wishlist.id},sequenceNumber=${wishlistItem.number})}" class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-title="Delete Item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+              <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+            </svg>
+          </a></td>
+          <input type="hidden" class="form-control" th:value="${wishlistItem.wishlistId}" th:field="*{wishlistItems[__${iterStat.index}__].wishlistId}">
         </tr>
         </tbody>
       </table>
     </div>
+    <div class="mb-2">
+      <a class="btn btn-secondary btn-sm" th:href="@{new-item(wishlistId=${wishlist.id})}" data-bs-toggle="tooltip" data-bs-title="This will discard any changes">Add New Item</a>
+    </div>
     <div class="clearfix">
       <button type="submit" class="btn btn-primary">Submit</button>
       <a class="btn btn-secondary" th:href="@{display(id=${wishlist.id})}">Cancel</a>
-      <button type="button" class="btn btn-secondary btn-sm float-end" data-bs-toggle="modal" data-bs-target="#deleteModal">
+      <button type="button" class="btn btn-danger btn-sm float-end" data-bs-toggle="modal" data-bs-target="#deleteModal">
         Delete
       </button>
     </div>
@@ -53,7 +65,7 @@
           Are you sure you want to delete this wishlist?
         </div>
         <div class="modal-footer">
-          <a class="btn btn-primary" th:href="@{delete(id=${wishlist.id})}">Yes</a>
+          <a class="btn btn-danger" th:href="@{delete(id=${wishlist.id})}">Yes</a>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
         </div>
       </div>
