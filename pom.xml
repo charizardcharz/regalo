@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>net.arcatanium</groupId>
 	<artifactId>regalo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>regalo</name>
 	<description>A wishlist application</description>
 	<url/>
