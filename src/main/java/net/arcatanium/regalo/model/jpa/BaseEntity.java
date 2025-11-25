@@ -8,6 +8,7 @@ package net.arcatanium.regalo.model.jpa;
 
 import jakarta.persistence.MappedSuperclass;
 
+import jakarta.persistence.Version;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -23,4 +24,7 @@ public abstract class BaseEntity {
 
     @UpdateTimestamp
     private Instant lastUpdateTimeStamp;
+
+    @Version
+    private Integer version;
 }

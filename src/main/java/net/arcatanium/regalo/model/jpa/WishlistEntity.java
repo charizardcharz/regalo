@@ -12,7 +12,7 @@ import lombok.*;
 import java.util.List;
 import java.util.UUID;
 
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @Entity
 @Data
 @Table(name = WishlistEntity.WISHLIST_TABLE_NAME)
@@ -25,6 +25,7 @@ public class WishlistEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "WISHLIST_ID")
+    @EqualsAndHashCode.Include
     private UUID wishlistId;
 
     @Column(name = "NAME")

@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @Entity
 @Data
 @Table(name = WishlistItemEntity.WISHLIST_ITEM_TABLE_NAME)
@@ -23,12 +23,14 @@ public class WishlistItemEntity extends BaseEntity{
 
     @Id
     @Column(name = "SEQUENCE_NUM")
+    @EqualsAndHashCode.Include
     private Integer sequenceNumber;
 
     @Id
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "WISHLIST_ID")
     @JsonIgnore
+    @EqualsAndHashCode.Include
     @ToString.Exclude
     private WishlistEntity wishlistEntity;
 

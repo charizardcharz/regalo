@@ -6,13 +6,10 @@
 
 package net.arcatanium.regalo.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import lombok.extern.slf4j.Slf4j;
 import net.arcatanium.regalo.model.Wishlist;
 import net.arcatanium.regalo.model.WishlistItem;
 import net.arcatanium.regalo.model.jpa.WishlistEntity;
-import net.arcatanium.regalo.model.jpa.WishlistItemEntity;
 import net.arcatanium.regalo.model.jpa.WishlistItemKey;
 import net.arcatanium.regalo.repository.WishlistItemRepository;
 import net.arcatanium.regalo.repository.WishlistRepository;
@@ -22,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
