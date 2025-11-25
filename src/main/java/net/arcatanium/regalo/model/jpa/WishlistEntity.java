@@ -6,6 +6,7 @@
 
 package net.arcatanium.regalo.model.jpa;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -35,5 +36,11 @@ public class WishlistEntity extends BaseEntity {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<WishlistItemEntity> wishlistItemEntityList;
+
+    @OneToOne
+    @JoinColumn(name = "USER_ID")
+    @ToString.Exclude
+    @JsonIgnore
+    private UserEntity userEntity;
 
 }
