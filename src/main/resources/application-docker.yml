@@ -1,5 +1,6 @@
 logging:
   level:
+    ROOT: ERROR
     net.arcatanium: INFO
 
 spring:
