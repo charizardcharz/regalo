@@ -7,6 +7,7 @@
 package net.arcatanium.regalo.service;
 
 import lombok.extern.slf4j.Slf4j;
+import net.arcatanium.regalo.mapper.WishlistMapper;
 import net.arcatanium.regalo.model.Wishlist;
 import net.arcatanium.regalo.model.WishlistItem;
 import net.arcatanium.regalo.model.jpa.WishlistEntity;
@@ -28,18 +29,20 @@ import java.util.UUID;
 public class WishlistService {
     private final WishlistRepository wishlistRepository;
     private final WishlistItemRepository wishlistItemRepository;
+    private final WishlistMapper wishlistMapper;
 
     @Autowired
-    public WishlistService(WishlistRepository wishlistRepository, WishlistItemRepository wishlistItemRepository) {
+    public WishlistService(WishlistRepository wishlistRepository, WishlistItemRepository wishlistItemRepository, WishlistMapper wishlistMapper) {
         this.wishlistRepository = wishlistRepository;
         this.wishlistItemRepository = wishlistItemRepository;
+        this.wishlistMapper = wishlistMapper;
     }
 
     public List<Wishlist> getAllWishlists() {
         List<WishlistEntity> wishlistEntityList = wishlistRepository.findAll();
 
         return wishlistEntityList.stream()
-                .map(Wishlist::convertFromEntity)
+                .map(wishlistMapper::entityToModel)
                 .toList();
     }
 
@@ -48,7 +51,7 @@ public class WishlistService {
         UUID wishlistId = RegaloUtils.isValidUUID(id) ? UUID.fromString(id) : null;
 
         if (wishlistId != null){
-            return wishlistRepository.findByWishlistId(wishlistId).map(Wishlist::convertFromEntity);
+            return wishlistRepository.findByWishlistId(wishlistId).map(wishlistMapper::entityToModel);
         } else{
             return Optional.empty();
         }
@@ -66,7 +69,7 @@ public class WishlistService {
             log.debug("Saving new wishlist");
         }
 
-        return Optional.of(wishlistRepository.saveAndFlush(Wishlist.convertToEntity(wishlist)));
+        return Optional.of(wishlistRepository.saveAndFlush(wishlistMapper.modelToEntity(wishlist)));
     }
 
     /** Delete wishlist by ID
@@ -98,7 +101,7 @@ public class WishlistService {
         Optional<WishlistEntity> wishlistEntityOptional = RegaloUtils.isValidUUID(wishlistId) ?
                 wishlistRepository.findByWishlistId(UUID.fromString(wishlistId)) : Optional.empty();
         if (wishlistEntityOptional.isPresent()){
-            Wishlist wishlist = Wishlist.convertFromEntity(wishlistEntityOptional.get());
+            Wishlist wishlist = wishlistMapper.entityToModel(wishlistEntityOptional.get());
 
             if (CollectionUtils.isEmpty(wishlist.getWishlistItems())){
                 wishlist.setWishlistItems(List.of(WishlistItem.builder()
@@ -112,7 +115,7 @@ public class WishlistService {
                         .build());
             }
 
-            wishlistRepository.saveAndFlush(Wishlist.convertToEntity(wishlist));
+            wishlistRepository.saveAndFlush(wishlistMapper.modelToEntity(wishlist));
         }
     }
 
