@@ -27,7 +27,7 @@ public class WishlistItemEntity extends BaseEntity{
     private Integer sequenceNumber;
 
     @Id
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "WISHLIST_ID")
     @JsonIgnore
     @EqualsAndHashCode.Include

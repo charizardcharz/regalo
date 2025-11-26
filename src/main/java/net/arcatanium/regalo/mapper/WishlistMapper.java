@@ -4,21 +4,22 @@ import net.arcatanium.regalo.model.Wishlist;
 import net.arcatanium.regalo.model.jpa.WishlistEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.UUID;
 
 @Mapper(uses = WishlistItemMapper.class, componentModel = "spring")
-public interface WishlistMapper {
-    WishlistItemMapper wishlistItemMapper = Mappers.getMapper(WishlistItemMapper.class);
+public abstract class WishlistMapper {
+    @Autowired
+    protected WishlistItemMapper wishlistItemMapper;
 
     @Mapping(target = "id", source = "wishlistId")
     @Mapping(target = "wishlistItems", source = "wishlistItemEntityList")
-    Wishlist entityToModel (WishlistEntity wishlistEntity);
+    public abstract Wishlist entityToModel (WishlistEntity wishlistEntity);
 
-    default WishlistEntity modelToEntity (Wishlist wishlist) {
+    public WishlistEntity modelToEntity (Wishlist wishlist) {
         WishlistEntity wishlistEntity = WishlistEntity.builder()
                 .wishlistId(wishlist.getId() != null ?  UUID.fromString(wishlist.getId()) : null)
                 .name(wishlist.getName())
