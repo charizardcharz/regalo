@@ -7,5 +7,6 @@ ______                 _
 \_| \_\___|\__, |\__,_|_|\___/
             __/ |
            |___/
-Regalo - Version 0.0.1
+Regalo - Version 0.0.2
+Powered by Spring Boot ${spring-boot.version}
 Copyright (c) 2024 Albert Ybanez
