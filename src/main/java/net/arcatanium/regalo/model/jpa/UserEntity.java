@@ -22,8 +22,8 @@ public class UserEntity extends BaseEntity{
     @EqualsAndHashCode.Include
     private UUID userId;
 
-    @Column(name = "USERNAME")
-    private String userName;
+    @Column(name = "DISPLAY_NAME")
+    private String displayName;
 
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @ToString.Exclude

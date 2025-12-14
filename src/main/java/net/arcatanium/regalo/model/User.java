@@ -13,7 +13,7 @@ public class User {
     private String userId;
 
     @Size(max=255)
-    private String userName;
+    private String displayName;
 
     private List<Wishlist> wishlists;
 }
