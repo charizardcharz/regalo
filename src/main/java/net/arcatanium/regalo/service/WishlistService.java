@@ -17,6 +17,7 @@ import net.arcatanium.regalo.repository.WishlistRepository;
 import net.arcatanium.regalo.util.RegaloUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -38,6 +39,7 @@ public class WishlistService {
         this.wishlistMapper = wishlistMapper;
     }
 
+    @Transactional(readOnly = true)
     public List<Wishlist> getAllWishlists() {
         List<WishlistEntity> wishlistEntityList = wishlistRepository.findAll();
 
@@ -46,6 +48,7 @@ public class WishlistService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public Optional<Wishlist> getWishlistById(String id) {
         log.debug("Searching for wishlist with id {}", id);
         UUID wishlistId = RegaloUtils.isValidUUID(id) ? UUID.fromString(id) : null;
@@ -96,6 +99,7 @@ public class WishlistService {
         return wishlistRepository.saveAndFlush(wishlistEntity);
     }
 
+    @Transactional
     public void createNewWishlistItem(String wishlistId) {
         log.debug("Creating new empty wishlist item");
         Optional<WishlistEntity> wishlistEntityOptional = RegaloUtils.isValidUUID(wishlistId) ?
